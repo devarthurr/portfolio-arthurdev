@@ -63,6 +63,7 @@ body {
 
 .apresentacao__conteudo__paragrafo {
     font-size: 1.5rem;
+    font-weight: 20px;
     font-family: var(--fonte-secundaria);
 }
 
@@ -86,7 +87,7 @@ body {
     justify-content: center;
     gap: 16px;
     border: 2px solid var(--cor-terciaria);
-    width: 50%;
+    width: 80%;
     text-align: center;
     border-radius: 8px;
     font-size: 1.5rem;
@@ -102,7 +103,7 @@ body {
 }
 
 .apresentacao__image {
-    width: 50%;
+    width: 45%;
 }
 
 .rodape {
