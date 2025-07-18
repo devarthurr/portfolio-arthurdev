@@ -70,20 +70,23 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const body = document.body;
+            // Seleciona todos os links com href, exceto os que abrem em nova aba e links de âncora (#)
             const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"])');
 
             links.forEach(link => {
                 link.addEventListener('click', (event) => {
                     const href = link.getAttribute('href');
-                    const currentPath = window.location.pathname.split('/').pop(); 
+                    const currentPath = window.location.pathname.split('/').pop(); // Pega o nome do arquivo atual (ex: index.html)
 
+                    // Verifica se o link é para uma página diferente da atual
                     if (href && href !== currentPath) {
-                        event.preventDefault();
+                        event.preventDefault(); // Impede a navegação padrão do navegador
 
-                        body.classList.add('fadeOut');
+                        body.classList.add('fadeOut'); // Adiciona a classe para iniciar a animação de saída
 
+                        // O tempo aqui (800ms) deve corresponder à duração da sua animação 'fadeOut' no CSS
                         setTimeout(() => {
-                            window.location.href = href;
+                            window.location.href = href; // Redireciona para a nova página após a animação
                         }, 800); 
                     }
                 });
