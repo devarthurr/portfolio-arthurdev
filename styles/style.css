@@ -334,7 +334,9 @@ body.fadeOut {
     }
 
     .habilidade-item {
-        width: 8.5rem;
+        /* Permite mais flexibilidade para 4 itens por linha */
+        width: calc(25% - 1.5rem); /* Ajusta a largura para 4 itens por linha, considerando o gap */
+        max-width: 8.5rem; /* Limita o tamanho máximo */
         padding: 1rem 1.25rem;
     }
 
@@ -343,8 +345,10 @@ body.fadeOut {
         height: 3.125rem;
     }
 
+    /* MUDANÇA: Imagem abaixo do texto na apresentação */
     .apresentacao {
-        flex-direction: column-reverse;
+        flex-direction: column; /* Alinha os itens verticalmente */
+        align-items: center; /* Centraliza os itens horizontalmente */
         padding: 2rem 5%;
         gap: 2rem;
     }
@@ -352,6 +356,11 @@ body.fadeOut {
     .apresentacao__conteudo, .apresentacao__image {
         width: 100%;
         max-width: none;
+    }
+
+    /* Adiciona margem à imagem quando empilhada */
+    .apresentacao__image {
+        margin-top: 2rem; 
     }
 
     .apresentacao__conteudo__titulo {
@@ -378,52 +387,63 @@ body.fadeOut {
     }
 
     .cabecalho__menu {
-        /* Mantém os links lado a lado em celulares maiores e tablets */
-        flex-direction: row; 
+        flex-direction: row; /* Mantém os links lado a lado */
         gap: 1rem; /* Diminui o espaço entre eles */
-        flex-wrap: wrap; /* Garante que quebrem para a próxima linha se não houver espaço suficiente */
+        flex-wrap: wrap; /* Garante que quebrem para a próxima linha se necessário */
         justify-content: center; /* Centraliza-os */
     }
 
     .cabecalho__menu__link {
-        font-size: 1.05rem; /* Ajuste o tamanho da fonte para que caibam melhor */
-        padding-left: 0.5rem; /* Adiciona um pouco de padding para espaçamento visual */
+        font-size: 1.05rem;
+        padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
 
     .habilidades-painel {
-        /* Ajusta a largura e o padding do painel */
         width: 98%; /* Ocupa quase toda a largura */
         padding: 1rem; /* Diminui o padding interno */
         margin: 1.5rem auto; /* Ajusta as margens */
     }
 
     .habilidades-painel__titulo {
-        font-size: 1.3rem; /* Reduz o tamanho do título */
+        font-size: 1.3rem;
         margin-bottom: 1rem;
     }
 
     .habilidades-painel__lista {
-        gap: 0.8rem; /* Reduz ainda mais o gap entre os itens de habilidade */
+        /* MUDANÇA: Garante 4 habilidades lado a lado */
+        justify-content: space-around; /* Distribui o espaço entre os itens */
+        gap: 0.5rem; /* Reduz o gap entre os itens para otimizar espaço */
     }
 
     .habilidade-item {
-        width: 7.5rem; /* 120px - Ajusta a largura do item */
-        padding: 0.7rem 0.9rem; /* Diminui o padding interno do item */
+        width: calc(25% - 0.75rem); /* Ajusta a largura para 4 itens, considerando o gap */
+        min-width: 4rem; /* Um tamanho mínimo para o item */
+        max-width: 6rem; /* Um tamanho máximo razoável */
+        padding: 0.7rem 0.5rem; /* Diminui o padding interno do item */
+        font-size: 0.75rem; /* Reduz o tamanho da fonte do texto da habilidade */
     }
 
     .habilidade-item img {
-        width: 2.2rem; /* 35.2px */
-        height: 2.2rem; /* 35.2px */
+        width: 2rem; /* Ícone menor */
+        height: 2rem;
+        margin-bottom: 0.2rem;
     }
 
     .habilidade-item span {
-        font-size: 0.85rem; /* Reduz o texto da habilidade */
+        font-size: 0.8rem; /* Ajusta a fonte do texto da habilidade */
     }
 
     .apresentacao {
+        /* MUDANÇA: Imagem abaixo do texto */
+        flex-direction: column;
+        align-items: center;
         padding: 1.5rem 3%;
         gap: 1.5rem;
+    }
+    /* Adiciona margem à imagem quando empilhada */
+    .apresentacao__image {
+        margin-top: 1.5rem;
     }
 
     .apresentacao__conteudo__titulo {
@@ -450,50 +470,49 @@ body.fadeOut {
     }
 
     .cabecalho__menu {
-        /* Mais ajustes finos para os links em telas muito pequenas */
-        gap: 0.5rem; /* Espaço mínimo entre os links */
+        gap: 0.5rem;
     }
 
     .cabecalho__menu__link {
-        font-size: 0.95rem; /* Reduz o tamanho da fonte para caber */
+        font-size: 0.95rem;
         padding-left: 0.3rem;
         padding-right: 0.3rem;
     }
 
     .habilidades-painel {
-        /* Ajustes para painel em telas muito pequenas */
-        padding: 0.8rem; /* Padding bem reduzido */
-        margin: 1rem auto; /* Menos margem */
+        padding: 0.8rem;
+        margin: 1rem auto;
     }
 
     .habilidades-painel__titulo {
-        font-size: 1.1rem; /* Título menor ainda */
+        font-size: 1.1rem;
         margin-bottom: 0.8rem;
     }
 
     .habilidades-painel__lista {
-        /* Para telas muito pequenas, podemos empilhar novamente ou mantê-los compactos */
-        flex-direction: row; /* Mantém em linha, mas com wrapeamento */
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.6rem; /* Mais compacto */
+        /* MUDANÇA: Mantém 4 habilidades lado a lado em telas muito pequenas */
+        justify-content: space-between; /* Distribui o espaço entre eles */
+        gap: 0.3rem; /* Um gap mínimo */
     }
 
     .habilidade-item {
-        width: 6.5rem; /* Reduz largura do item */
-        padding: 0.6rem 0.8rem; /* Reduz padding */
-        flex-direction: column; /* Volta a empilhar ícone e texto para aproveitar o espaço */
+        /* Ajusta para caber 4 em linha, mesmo em telas bem pequenas */
+        width: calc(25% - 0.45rem); /* Considerando o gap reduzido */
+        min-width: 3.5rem; /* Define um mínimo para não quebrar */
+        max-width: 4.5rem;
+        padding: 0.5rem 0.2rem;
+        flex-direction: column; /* Ícone e texto empilhados dentro do item */
+        font-size: 0.65rem; /* Fonte ainda menor para caber */
     }
     
     .habilidade-item img {
-        width: 2rem; /* Ícone menor */
-        height: 2rem;
-        margin-bottom: 0.3rem;
-        margin-right: 0; /* Garante que não haja margem à direita se a flex-direction mudar */
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-bottom: 0.2rem;
     }
 
     .habilidade-item span {
-        font-size: 0.8rem; /* Fonte do texto da habilidade menor */
+        font-size: 0.7rem; /* Fonte do texto da habilidade menor */
     }
 
     .apresentacao__conteudo__titulo {
@@ -517,20 +536,25 @@ body.fadeOut {
 /* Ajuste adicional para dispositivos pequenos em orientação horizontal */
 @media (max-height: 480px) and (orientation: landscape) {
     .apresentacao {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: row; /* Tenta manter a imagem e o texto lado a lado se houver espaço */
+        flex-wrap: wrap; /* Garante que quebrem se não couberem */
         gap: 1rem;
     }
 
     .apresentacao__conteudo, .apresentacao__image {
-        width: 48%;
+        width: 48%; /* Divide o espaço */
+    }
+
+    .apresentacao__image {
+        margin-top: 0; /* Remove a margem superior se estiverem lado a lado */
     }
 
     .habilidades-painel__lista {
         flex-direction: row;
+        gap: 0.8rem;
     }
     .habilidade-item {
-        width: 6rem; /* Ajusta largura */
-        padding: 0.5rem 0.6rem;
+        width: calc(25% - 1.2rem); /* Mais espaço para itens */
+        padding: 0.6rem 0.8rem;
     }
 }
