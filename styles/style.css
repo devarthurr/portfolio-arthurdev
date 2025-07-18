@@ -2,9 +2,11 @@
 
 :root {
     --cor-primaria: #000000;
-    --cor-secundaria: aliceblue;
-    --cor-terciaria: blue;
-    --cor-hover: #272727;
+    --cor-secundaria: #E0E0E0; /* Aliceblue mais sutil */
+    --cor-terciaria: #4A90E2; /* Um azul mais vibrante */
+    --cor-hover: #1A1A1A; /* Um cinza escuro para hover */
+    --cor-sombra: rgba(74, 144, 226, 0.5); /* Sombra azulada mais intensa */
+    --cor-gradiente-background: linear-gradient(135deg, #000000 0%, #1A2A3A 100%); /* Gradiente para o fundo */
 
     --fonte-primaria: "Krona One", sans-serif;
     --fonte-secundaria: "Montserrat", sans-serif;
@@ -13,17 +15,54 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho do elemento */
 }
 
 body {
-    box-sizing: border-box;
-    background-color: var(--cor-primaria);
+    background: var(--cor-gradiente-background); /* Aplica o gradiente de fundo */
     color: var(--cor-secundaria);
+    min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+    display: flex;
+    flex-direction: column; /* Para manter o rodapé na parte inferior */
+
+    /* Animação de entrada da página */
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0; /* Começa invisível para a animação */
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Começa um pouco abaixo */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Termina na posição normal */
+    }
+}
+
+/* Animação para quando a página "sair" - precisa de JavaScript para ser ativada */
+/* Exemplo de classe a ser adicionada via JS antes de mudar de página */
+body.fadeOut {
+    animation: fadeOut 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px); /* Sai um pouco para cima */
+    }
+}
+
 
 .cabecalho {
     padding: 2% 0% 0% 15%;
 }
+
 .cabecalho__menu {
     display: flex;
     gap: 80px;
@@ -31,13 +70,40 @@ body {
 
 .cabecalho__menu__link {
     font-family: var(--fonte-secundaria);
-    font-size: 24px;
+    font-size: 1.5rem; /* Ajuste para um tamanho mais comum */
     font-weight: 600;
-    color: var(--cor-terciaria);
+    color: var(--cor-secundaria); /* Cor do texto padrão */
     text-decoration: none;
+    position: relative; /* Para o efeito de underline animado */
+    padding-bottom: 5px; /* Espaço para o underline */
+
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Underline animado */
+.cabecalho__menu__link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: var(--cor-terciaria);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.cabecalho__menu__link:hover::after {
+    width: 100%;
+}
+
+.cabecalho__menu__link:hover {
+    color: var(--cor-terciaria); /* Mudar a cor do texto no hover */
+    transform: translateY(-3px); /* Um leve "levantar" para o link */
+    /* Removi a sombra daqui para focar no underline e levantamento */
 }
 
 .apresentacao {
+    flex-grow: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
     margin: 5% 15%;
     gap: 82px;
     display: flex;
@@ -50,21 +116,27 @@ body {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    /* Adiciona uma sombra interna suave para dar profundidade ao conteúdo */
+    box-shadow: inset 0 0 15px rgba(74, 144, 226, 0.1);
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .apresentacao__conteudo__titulo {
-    font-size: 2.25rem;
+    font-size: 2.5rem; /* Aumento o tamanho da fonte */
     color: var(--cor-terciaria);
     font-family: var(--fonte-primaria);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra no texto */
 }
 
 .title-destaque {
-    color: var(--cor-terciaria);
+    color: var(--cor-secundaria); /* Alterado para contraste com o azul do título */
 }
 
 .apresentacao__conteudo__paragrafo {
-    font-size: 1.7rem;
+    font-size: 1.25rem; /* Ajuste no tamanho do parágrafo */
     font-family: var(--fonte-secundaria);
+    line-height: 1.6; /* Melhor legibilidade */
 }
 
 .apresentacao__links {
@@ -72,61 +144,162 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 32px;
+    gap: 20px; /* Aumento do espaçamento entre os links e subtítulo */
+    width: 100%; /* Garante que os links ocupem a largura do container */
 }
 
 .apresentacao__links__subtitulo {
     color: var(--cor-secundaria);
     font-family: var(--fonte-primaria);
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Ajuste no tamanho */
+    letter-spacing: 1px; /* Espaçamento entre letras */
 }
 
 .apresentacao__links__navegacao {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+    gap: 10px; /* Espaço entre ícone e texto */
     border: 2px solid var(--cor-terciaria);
-    width: 80%;
+    background-color: transparent; /* Fundo transparente inicialmente */
+    width: 70%; /* Ajuste para ter um pouco mais de margem */
+    max-width: 300px; /* Limita a largura máxima */
     text-align: center;
-    border-radius: 8px;
-    font-size: 1.5rem;
-    padding: 21.5px 0;
+    border-radius: 50px; /* Bordas mais arredondadas para um visual de pílula */
+    font-size: 1.2rem;
+    padding: 15px 0; /* Ajuste no padding */
     text-decoration: none;
-    color: var(--cor-secundarias);
+    color: var(--cor-secundaria);
     font-family: var(--fonte-secundaria);
     font-weight: 600;
+    cursor: pointer; /* Indica que é clicável */
+
+    /* Transição para suavizar o hover */
+    transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-.apresentacao__links__link:hover {
-    background-color: var(--cor-hover);
+.apresentacao__links__navegacao:hover {
+    background-color: var(--cor-terciaria); /* Fundo preenchido no hover */
+    color: var(--cor-primaria); /* Texto escuro no hover */
+    box-shadow: 0 10px 25px var(--cor-sombra); /* Sombra mais pronunciada */
+    transform: translateY(-8px) scale(1.02); /* Leve "levantar" e aumento de escala */
+    border-color: transparent; /* Remove a borda para um look mais limpo no hover */
+}
+
+/* Exemplo de como você adicionaria ícones (requer que você os importe no HTML) */
+.apresentacao__links__navegacao i {
+    font-size: 1.5rem; /* Tamanho do ícone */
 }
 
 .apresentacao__image {
     width: 45%;
+    max-width: 500px; /* Garante que a imagem não seja muito grande */
+    border-radius: 15px; /* Bordas levemente arredondadas */
+    object-fit: cover; /* Garante que a imagem se ajuste sem distorcer */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra inicial mais forte */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.apresentacao__image:hover {
+    box-shadow: 0 15px 35px var(--cor-sombra); /* Sombra mais intensa no hover */
+    transform: scale(1.03); /* Aumento de escala mais notável */
 }
 
 .rodape {
-    color: var(--cor-primaria);
-    background-color: var(--cor-terciaria);
-    padding: 24px;
+    color: var(--cor-secundaria); /* Texto do rodapé em cor secundária */
+    background-color: var(--cor-terciaria); /* Fundo do rodapé em azul vibrante */
+    padding: 15px; /* Aumento do padding */
     text-align: center;
     font-family: var(--fonte-secundaria);
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1rem; /* Ajuste no tamanho da fonte */
+    font-weight: 500;
+    margin-top: auto; /* Empurra o rodapé para baixo */
+    border-top-left-radius: 10px; /* Bordas arredondadas no topo */
+    border-top-right-radius: 10px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil para cima */
 }
 
+/* Media Queries para responsividade aprimorada */
 @media (max-width: 1200px) {
-
     .cabecalho {
-        padding: 10%;
-   }
+        padding: 8% 5%; /* Ajuste o padding para telas menores */
+    }
 
-   .cabecalho__menu {
-       justify-content: center;
-   }
+    .cabecalho__menu {
+        flex-direction: column; /* Menu em coluna */
+        gap: 20px;
+        align-items: center;
+    }
+
+    .cabecalho__menu__link {
+        font-size: 1.3rem;
+    }
 
     .apresentacao {
-        flex: column-reverse;
+        flex-direction: column-reverse;
+        margin: 5% 5%; /* Ajuste as margens para telas menores */
+        gap: 50px; /* Ajuste o gap */
+    }
+
+    .apresentacao__conteudo, .apresentacao__image {
+        width: 90%; /* Ocupa mais largura em telas menores */
+        max-width: none; /* Remove a largura máxima */
+    }
+
+    .apresentacao__conteudo__titulo {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .apresentacao__conteudo__paragrafo {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .apresentacao__links {
+        gap: 15px;
+    }
+
+    .apresentacao__links__navegacao {
+        font-size: 1.1rem;
+        width: 85%;
+        max-width: 400px;
+    }
+
+    .apresentacao__image {
+        height: auto; /* Garante que a altura se ajuste à largura */
+    }
+}
+
+@media (max-width: 768px) {
+    .cabecalho {
+        padding: 5% 3%;
+    }
+
+    .apresentacao {
+        margin: 8% 3%;
+    }
+
+    .apresentacao__conteudo__titulo {
+        font-size: 1.8rem;
+    }
+
+    .apresentacao__conteudo__paragrafo {
+        font-size: 1rem;
+    }
+
+    .apresentacao__links__subtitulo {
+        font-size: 1rem;
+    }
+
+    .apresentacao__links__navegacao {
+        font-size: 1rem;
+        padding: 12px 0;
+    }
+
+    .rodape {
+        font-size: 0.9rem;
+        padding: 12px;
     }
 }
