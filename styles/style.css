@@ -7,6 +7,9 @@
     --cor-hover: #1A1A1A; /* Um cinza escuro para hover */
     --cor-sombra: rgba(74, 144, 226, 0.5); /* Sombra azulada mais intensa */
     --cor-gradiente-background: linear-gradient(135deg, #000000 0%, #1A2A3A 100%); /* Gradiente para o fundo */
+    --cor-painel-fundo: rgba(26, 42, 58, 0.7); /* Fundo escuro semitransparente para o painel */
+    --cor-painel-borda: var(--cor-terciaria); /* Borda com a cor azul vibrante */
+    --cor-texto-habilidade: var(--cor-secundaria);
 
     --fonte-primaria: "Krona One", sans-serif;
     --fonte-secundaria: "Montserrat", sans-serif;
@@ -58,7 +61,6 @@ body.fadeOut {
     }
 }
 
-
 .cabecalho {
     padding: 2% 0% 0% 15%;
 }
@@ -102,9 +104,101 @@ body.fadeOut {
     /* Removi a sombra daqui para focar no underline e levantamento */
 }
 
+/* Estilos para o novo Painel de Habilidades */
+.habilidades-painel {
+    width: 70%; /* Largura do painel */
+    margin: 3% auto 0; /* Margem superior, centraliza horizontalmente, sem margem inferior inicial */
+    padding: 30px;
+    background: var(--cor-painel-fundo); /* Fundo semitransparente */
+    border: 2px solid var(--cor-painel-borda); /* Borda com a cor terciária */
+    border-radius: 15px; /* Bordas arredondadas */
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
+    backdrop-filter: blur(5px); /* Efeito de blur no fundo do painel, se suportado pelo navegador */
+    -webkit-backdrop-filter: blur(5px); /* Prefixo para compatibilidade com navegadores Webkit */
+    animation: slideInFromTop 0.8s ease-out forwards; /* Animação de entrada */
+    opacity: 0; /* Começa invisível para a animação */
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.habilidades-painel__titulo {
+    font-family: var(--fonte-primaria);
+    font-size: 1.8rem;
+    color: var(--cor-terciaria); /* Título azul vibrante */
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.habilidades-painel__lista {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha se não houver espaço */
+    gap: 30px; /* Espaçamento entre os itens */
+}
+
+.habilidade-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.08); /* Fundo levemente transparente para cada item */
+    padding: 20px 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(74, 144, 226, 0.3); /* Borda sutil nos itens */
+    transition: all 0.3s ease-in-out; /* Transição para efeitos de hover */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra para cada item */
+    width: 150px; /* Largura fixa para os itens */
+    flex-shrink: 0; /* Impede que os itens encolham */
+}
+
+.habilidade-item img {
+    width: 60px; /* Tamanho da imagem do ícone */
+    height: 60px; /* Garante que a imagem seja quadrada */
+    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+    margin-bottom: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.habilidade-item span {
+    font-family: var(--fonte-secundaria);
+    font-size: 1.1rem;
+    color: var(--cor-texto-habilidade); /* Cor do texto da habilidade */
+    font-weight: 500;
+}
+
+/* Efeito de hover para os itens de habilidade */
+.habilidade-item:hover {
+    background-color: var(--cor-hover); /* Fundo escuro no hover */
+    transform: translateY(-8px) scale(1.05); /* Leve levantamento e aumento */
+    box-shadow: 0 12px 25px var(--cor-sombra); /* Sombra mais pronunciada */
+    border-color: var(--cor-secundaria); /* Borda mais visível no hover */
+}
+
+.habilidade-item:hover img {
+    transform: scale(1.1); /* Ícone aumenta um pouco no hover */
+}
+
+/* Estilo para o link que envolve o item de habilidade */
+.habilidade-link {
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    color: inherit; /* Faz com que o texto dentro do link herde a cor do elemento pai */
+    display: inline-block; /* Garante que o link se comporte bem no layout flex */
+}
+
+
 .apresentacao {
     flex-grow: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
-    margin: 5% 15%;
+    margin: 5% 15% 0; /* Margem superior, centraliza horizontalmente, sem margem inferior inicial */
     gap: 82px;
     display: flex;
     align-items: center;
@@ -176,7 +270,13 @@ body.fadeOut {
     cursor: pointer; /* Indica que é clicável */
 
     /* Transição para suavizar o hover */
-    transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+.apresentacao__links__navegacao img {
+    width: 24px; /* Tamanho dos ícones de rede social */
+    height: 24px;
+    transition: transform 0.3s ease-in-out;
 }
 
 .apresentacao__links__navegacao:hover {
@@ -187,10 +287,10 @@ body.fadeOut {
     border-color: transparent; /* Remove a borda para um look mais limpo no hover */
 }
 
-/* Exemplo de como você adicionaria ícones (requer que você os importe no HTML) */
-.apresentacao__links__navegacao i {
-    font-size: 1.5rem; /* Tamanho do ícone */
+.apresentacao__links__navegacao:hover img {
+    transform: scale(1.15); /* Ícone de rede social aumenta um pouco no hover */
 }
+
 
 .apresentacao__image {
     width: 45%;
@@ -220,7 +320,8 @@ body.fadeOut {
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil para cima */
 }
 
-/* Media Queries para responsividade aprimorada */
+/* --- Media Queries --- */
+
 @media (max-width: 1200px) {
     .cabecalho {
         padding: 8% 5%; /* Ajuste o padding para telas menores */
@@ -236,9 +337,33 @@ body.fadeOut {
         font-size: 1.3rem;
     }
 
+    .habilidades-painel {
+        width: 85%; /* Ajuste a largura do painel para telas menores */
+        padding: 25px;
+        margin-top: 5%;
+    }
+
+    .habilidades-painel__titulo {
+        font-size: 1.5rem;
+    }
+
+    .habilidades-painel__lista {
+        gap: 20px;
+    }
+
+    .habilidade-item {
+        width: 130px; /* Ajuste a largura dos itens */
+        padding: 15px 20px;
+    }
+
+    .habilidade-item img {
+        width: 50px; /* Reduz o tamanho da imagem do ícone */
+        height: 50px;
+    }
+
     .apresentacao {
         flex-direction: column-reverse;
-        margin: 5% 5%; /* Ajuste as margens para telas menores */
+        margin: 5% 5% 0; /* Ajuste as margens para telas menores */
         gap: 50px; /* Ajuste o gap */
     }
 
@@ -278,7 +403,7 @@ body.fadeOut {
     }
 
     .apresentacao {
-        margin: 8% 3%;
+        margin: 8% 3% 0;
     }
 
     .apresentacao__conteudo__titulo {
@@ -298,8 +423,49 @@ body.fadeOut {
         padding: 12px 0;
     }
 
+    .habilidades-painel {
+        width: 95%; /* Ocupa quase toda a largura em telas muito pequenas */
+        margin-top: 5%; /* Mais margem em cima */
+        padding: 20px;
+    }
+
+    .habilidades-painel__titulo {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    .habilidades-painel__lista {
+        flex-direction: row; /* Mantém em linha, mas permite quebra */
+        gap: 15px;
+    }
+
+    .habilidade-item {
+        width: 110px; /* Reduz ainda mais a largura do item */
+        padding: 12px 15px;
+    }
+
+    .habilidade-item img {
+        width: 40px; /* Ícone menor para telas pequenas */
+        height: 40px;
+    }
+
+    .habilidade-item span {
+        font-size: 0.9rem;
+    }
+
     .rodape {
         font-size: 0.9rem;
         padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .habilidades-painel__lista {
+        flex-direction: column; /* Em telas muito pequenas, pode empilhar */
+        align-items: center;
+    }
+    .habilidade-item {
+        width: 80%; /* Ocupa mais largura quando empilhado */
+        max-width: 200px; /* Limita a largura máxima */
     }
 }
