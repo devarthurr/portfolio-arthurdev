@@ -24,5 +24,29 @@
     <footer class="rodape">
             <p>© 2025 Dev Arthur. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"])');
+
+            links.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    const currentPath = window.location.pathname.split('/').pop(); 
+
+                    if (href && href !== currentPath) {
+                        event.preventDefault();
+
+                        body.classList.add('fadeOut');
+
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 800); 
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
