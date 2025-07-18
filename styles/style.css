@@ -18,34 +18,36 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho do elemento */
+    box-sizing: border-box;
+}
+
+html {
+    /* Define um tamanho de fonte base para facilitar o uso de rem */
+    font-size: 16px; /* Tamanho padrão de fonte para 1rem */
 }
 
 body {
-    background: var(--cor-gradiente-background); /* Aplica o gradiente de fundo */
+    background: var(--cor-gradiente-background);
     color: var(--cor-secundaria);
-    min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+    min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Para manter o rodapé na parte inferior */
-
-    /* Animação de entrada da página */
+    flex-direction: column;
     animation: fadeIn 1s ease-in-out forwards;
-    opacity: 0; /* Começa invisível para a animação */
+    opacity: 0;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Começa um pouco abaixo */
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0); /* Termina na posição normal */
+        transform: translateY(0);
     }
 }
 
-/* Animação para quando a página "sair" - precisa de JavaScript para ser ativada */
-/* Exemplo de classe a ser adicionada via JS antes de mudar de página */
 body.fadeOut {
     animation: fadeOut 0.8s ease-in-out forwards;
 }
@@ -57,37 +59,38 @@ body.fadeOut {
     }
     to {
         opacity: 0;
-        transform: translateY(-20px); /* Sai um pouco para cima */
+        transform: translateY(-20px);
     }
 }
 
 .cabecalho {
-    padding: 2% 0% 0% 15%;
+    padding: 2rem 5%; /* Mais padding em rem e padding lateral ajustável */
+    width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
 }
 
 .cabecalho__menu {
     display: flex;
-    gap: 80px;
+    justify-content: center; /* Centraliza os itens no menu */
+    gap: 2rem; /* Reduz o gap para telas maiores, facilitando a quebra */
+    flex-wrap: wrap; /* Permite que os links quebrem para a próxima linha */
 }
 
 .cabecalho__menu__link {
     font-family: var(--fonte-secundaria);
-    font-size: 1.5rem; /* Ajuste para um tamanho mais comum */
+    font-size: 1.25rem; /* Ajuste para um tamanho mais comum e responsivo */
     font-weight: 600;
-    color: var(--cor-secundaria); /* Cor do texto padrão */
+    color: var(--cor-secundaria);
     text-decoration: none;
-    position: relative; /* Para o efeito de underline animado */
-    padding-bottom: 5px; /* Espaço para o underline */
-
-    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 0.3125rem; /* 5px */
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Underline animado */
 .cabecalho__menu__link::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 3px;
+    height: 0.1875rem; /* 3px */
     background: var(--cor-terciaria);
     bottom: 0;
     left: 0;
@@ -99,31 +102,31 @@ body.fadeOut {
 }
 
 .cabecalho__menu__link:hover {
-    color: var(--cor-terciaria); /* Mudar a cor do texto no hover */
-    transform: translateY(-3px); /* Um leve "levantar" para o link */
-    /* Removi a sombra daqui para focar no underline e levantamento */
+    color: var(--cor-terciaria);
+    transform: translateY(-0.1875rem); /* 3px */
 }
 
-/* Estilos para o novo Painel de Habilidades */
+/* Habilidades Painel */
 .habilidades-painel {
-    width: 70%; /* Largura do painel */
-    margin: 3% auto 0; /* Margem superior, centraliza horizontalmente, sem margem inferior inicial */
-    padding: 30px;
-    background: var(--cor-painel-fundo); /* Fundo semitransparente */
-    border: 2px solid var(--cor-painel-borda); /* Borda com a cor terciária */
-    border-radius: 15px; /* Bordas arredondadas */
+    width: 90%; /* Aumenta a largura para ocupar mais espaço em todas as telas */
+    max-width: 1200px; /* Limita a largura máxima */
+    margin: 3rem auto 2rem; /* Margem superior, centraliza, margem inferior */
+    padding: 2rem;
+    background: var(--cor-painel-fundo);
+    border: 0.125rem solid var(--cor-painel-borda); /* 2px */
+    border-radius: 0.9375rem; /* 15px */
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
-    backdrop-filter: blur(5px); /* Efeito de blur no fundo do painel, se suportado pelo navegador */
-    -webkit-backdrop-filter: blur(5px); /* Prefixo para compatibilidade com navegadores Webkit */
-    animation: slideInFromTop 0.8s ease-out forwards; /* Animação de entrada */
-    opacity: 0; /* Começa invisível para a animação */
+    box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.5); /* 8px 30px */
+    backdrop-filter: blur(0.3125rem); /* 5px */
+    -webkit-backdrop-filter: blur(0.3125rem); /* 5px */
+    animation: slideInFromTop 0.8s ease-out forwards;
+    opacity: 0;
 }
 
 @keyframes slideInFromTop {
     from {
         opacity: 0;
-        transform: translateY(-50px);
+        transform: translateY(-3.125rem); /* 50px */
     }
     to {
         opacity: 1;
@@ -134,276 +137,223 @@ body.fadeOut {
 .habilidades-painel__titulo {
     font-family: var(--fonte-primaria);
     font-size: 1.8rem;
-    color: var(--cor-terciaria); /* Título azul vibrante */
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    color: var(--cor-terciaria);
+    margin-bottom: 1.5rem; /* 25px */
+    text-shadow: 0.0625rem 0.0625rem 0.1875rem rgba(0, 0, 0, 0.3); /* 1px 1px 3px */
 }
 
 .habilidades-painel__lista {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permite que os itens quebrem linha se não houver espaço */
-    gap: 30px; /* Espaçamento entre os itens */
+    flex-wrap: wrap;
+    gap: 1.5rem; /* 24px - Reduz o gap entre os itens para caberem mais */
 }
 
 .habilidade-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    background-color: rgba(255, 255, 255, 0.08); /* Fundo levemente transparente para cada item */
-    padding: 20px 30px;
-    border-radius: 10px;
-    border: 1px solid rgba(74, 144, 226, 0.3); /* Borda sutil nos itens */
-    transition: all 0.3s ease-in-out; /* Transição para efeitos de hover */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra para cada item */
-    width: 150px; /* Largura fixa para os itens */
+    gap: 0.625rem; /* 10px */
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 1.25rem 1.875rem; /* 20px 30px */
+    border-radius: 0.625rem; /* 10px */
+    border: 0.0625rem solid rgba(74, 144, 226, 0.3); /* 1px */
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3); /* 2px 10px */
+    width: 9rem; /* 144px - Largura fixa para os itens */
+    min-width: 7.5rem; /* 120px - Garante que não fiquem muito pequenos */
     flex-shrink: 0; /* Impede que os itens encolham */
+    text-align: center; /* Centraliza o texto da habilidade */
 }
 
 .habilidade-item img {
-    width: 60px; /* Tamanho da imagem do ícone */
-    height: 60px; /* Garante que a imagem seja quadrada */
-    object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
-    margin-bottom: 5px;
+    width: 3.75rem; /* 60px */
+    height: 3.75rem; /* 60px */
+    object-fit: contain;
+    margin-bottom: 0.3125rem; /* 5px */
     transition: transform 0.3s ease-in-out;
 }
 
 .habilidade-item span {
     font-family: var(--fonte-secundaria);
-    font-size: 1.1rem;
-    color: var(--cor-texto-habilidade); /* Cor do texto da habilidade */
+    font-size: 1rem; /* 16px - Tamanho de fonte padrão */
+    color: var(--cor-texto-habilidade);
     font-weight: 500;
+    white-space: nowrap; /* Evita que o texto quebre linha */
+    overflow: hidden; /* Esconde o texto que excede a largura */
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
 }
 
-/* Efeito de hover para os itens de habilidade */
 .habilidade-item:hover {
-    background-color: var(--cor-hover); /* Fundo escuro no hover */
-    transform: translateY(-8px) scale(1.05); /* Leve levantamento e aumento */
-    box-shadow: 0 12px 25px var(--cor-sombra); /* Sombra mais pronunciada */
-    border-color: var(--cor-secundaria); /* Borda mais visível no hover */
+    background-color: var(--cor-hover);
+    transform: translateY(-0.5rem) scale(1.05); /* 8px */
+    box-shadow: 0 0.75rem 1.5625rem var(--cor-sombra); /* 12px 25px */
+    border-color: var(--cor-secundaria);
 }
 
 .habilidade-item:hover img {
-    transform: scale(1.1); /* Ícone aumenta um pouco no hover */
+    transform: scale(1.1);
 }
-
-/* Estilo para o link que envolve o item de habilidade */
-.habilidade-link {
-    text-decoration: none; /* Remove o sublinhado padrão do link */
-    color: inherit; /* Faz com que o texto dentro do link herde a cor do elemento pai */
-    display: inline-block; /* Garante que o link se comporte bem no layout flex */
-}
-
 
 .apresentacao {
-    flex-grow: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
-    margin: 5% 15% 0; /* Margem superior, centraliza horizontalmente, sem margem inferior inicial */
-    gap: 82px;
+    flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    padding: 3rem 5%; /* Mais padding em rem e padding lateral ajustável */
+    flex-wrap: wrap; /* Permite que a imagem e o texto quebrem linha */
+    gap: 3rem; /* Espaçamento entre os elementos */
 }
 
 .apresentacao__conteudo {
-    width: 50%;
+    width: 100%; /* Ocupa 100% da largura disponível */
+    max-width: 600px; /* Limita a largura máxima do conteúdo */
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    /* Adiciona uma sombra interna suave para dar profundidade ao conteúdo */
-    box-shadow: inset 0 0 15px rgba(74, 144, 226, 0.1);
-    padding: 20px;
-    border-radius: 10px;
+    gap: 1.5rem; /* 24px - Ajuste o gap */
+    box-shadow: inset 0 0 0.9375rem rgba(74, 144, 226, 0.1); /* 15px */
+    padding: 1.5rem;
+    border-radius: 0.625rem; /* 10px */
+    text-align: center; /* Centraliza o texto por padrão */
 }
 
 .apresentacao__conteudo__titulo {
-    font-size: 2.5rem; /* Aumento o tamanho da fonte */
+    font-size: 2rem; /* 32px */
     color: var(--cor-terciaria);
     font-family: var(--fonte-primaria);
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra no texto */
+    text-shadow: 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.4); /* 2px 2px 5px */
 }
 
 .title-destaque {
-    color: var(--cor-secundaria); /* Alterado para contraste com o azul do título */
+    color: var(--cor-secundaria);
 }
 
 .apresentacao__conteudo__paragrafo {
-    font-size: 1.25rem; /* Ajuste no tamanho do parágrafo */
+    font-size: 1.1rem; /* Ajuste no tamanho do parágrafo, um pouco menor para mobile */
     font-family: var(--fonte-secundaria);
-    line-height: 1.6; /* Melhor legibilidade */
+    line-height: 1.6;
 }
 
 .apresentacao__links {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    gap: 20px; /* Aumento do espaçamento entre os links e subtítulo */
-    width: 100%; /* Garante que os links ocupem a largura do container */
+    gap: 1rem; /* 16px - Reduz o espaçamento */
+    width: 100%;
+    margin-top: 1.5rem; /* Margem superior para separar do parágrafo */
 }
 
 .apresentacao__links__subtitulo {
     color: var(--cor-secundaria);
     font-family: var(--fonte-primaria);
     font-weight: 400;
-    font-size: 1.2rem; /* Ajuste no tamanho */
-    letter-spacing: 1px; /* Espaçamento entre letras */
+    font-size: 1.1rem; /* 17.6px */
+    letter-spacing: 0.0625rem; /* 1px */
+    text-align: center; /* Garante que o subtítulo esteja centralizado */
 }
 
 .apresentacao__links__navegacao {
     display: flex;
     justify-content: center;
-    align-items: center; /* Centraliza verticalmente o conteúdo */
-    gap: 10px; /* Espaço entre ícone e texto */
-    border: 2px solid var(--cor-terciaria);
-    background-color: transparent; /* Fundo transparente inicialmente */
-    width: 70%; /* Ajuste para ter um pouco mais de margem */
-    max-width: 300px; /* Limita a largura máxima */
-    text-align: center;
-    border-radius: 50px; /* Bordas mais arredondadas para um visual de pílula */
-    font-size: 1.2rem;
-    padding: 15px 0; /* Ajuste no padding */
+    align-items: center;
+    gap: 0.625rem; /* 10px */
+    border: 0.125rem solid var(--cor-terciaria); /* 2px */
+    background-color: transparent;
+    width: 90%; /* Ocupa mais largura em telas menores */
+    max-width: 25rem; /* 400px - Limita a largura máxima */
+    border-radius: 3.125rem; /* 50px */
+    font-size: 1rem; /* 16px */
+    padding: 0.8rem 0; /* Ajuste no padding */
     text-decoration: none;
     color: var(--cor-secundaria);
     font-family: var(--fonte-secundaria);
     font-weight: 600;
-    cursor: pointer; /* Indica que é clicável */
-
-    /* Transição para suavizar o hover */
+    cursor: pointer;
     transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out, border-color 0.4s ease-in-out;
 }
 
 .apresentacao__links__navegacao img {
-    width: 24px; /* Tamanho dos ícones de rede social */
-    height: 24px;
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
     transition: transform 0.3s ease-in-out;
 }
 
 .apresentacao__links__navegacao:hover {
-    background-color: var(--cor-terciaria); /* Fundo preenchido no hover */
-    color: var(--cor-primaria); /* Texto escuro no hover */
-    box-shadow: 0 10px 25px var(--cor-sombra); /* Sombra mais pronunciada */
-    transform: translateY(-8px) scale(1.02); /* Leve "levantar" e aumento de escala */
-    border-color: transparent; /* Remove a borda para um look mais limpo no hover */
+    background-color: var(--cor-terciaria);
+    color: var(--cor-primaria);
+    box-shadow: 0 0.625rem 1.5625rem var(--cor-sombra); /* 10px 25px */
+    transform: translateY(-0.5rem) scale(1.02); /* 8px */
+    border-color: transparent;
 }
 
 .apresentacao__links__navegacao:hover img {
-    transform: scale(1.15); /* Ícone de rede social aumenta um pouco no hover */
+    transform: scale(1.15);
 }
 
-
 .apresentacao__image {
-    width: 45%;
-    max-width: 500px; /* Garante que a imagem não seja muito grande */
-    border-radius: 15px; /* Bordas levemente arredondadas */
-    object-fit: cover; /* Garante que a imagem se ajuste sem distorcer */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra inicial mais forte */
+    width: 90%; /* Ocupa mais largura para ser visível em mobile */
+    max-width: 28rem; /* 450px - Limita a largura máxima para não ficar gigante em telas maiores */
+    border-radius: 0.9375rem; /* 15px */
+    object-fit: cover;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.6); /* 8px 20px */
     transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
 .apresentacao__image:hover {
-    box-shadow: 0 15px 35px var(--cor-sombra); /* Sombra mais intensa no hover */
-    transform: scale(1.03); /* Aumento de escala mais notável */
+    box-shadow: 0 0.9375rem 2.1875rem var(--cor-sombra); /* 15px 35px */
+    transform: scale(1.03);
 }
 
 .rodape {
-    color: var(--cor-secundaria); /* Texto do rodapé em cor secundária */
-    background-color: var(--cor-terciaria); /* Fundo do rodapé em azul vibrante */
-    padding: 15px; /* Aumento do padding */
+    color: var(--cor-secundaria);
+    background-color: var(--cor-terciaria);
+    padding: 1rem; /* 16px */
     text-align: center;
     font-family: var(--fonte-secundaria);
-    font-size: 1rem; /* Ajuste no tamanho da fonte */
+    font-size: 0.875rem; /* 14px */
     font-weight: 500;
-    margin-top: auto; /* Empurra o rodapé para baixo */
-    border-top-left-radius: 10px; /* Bordas arredondadas no topo */
-    border-top-right-radius: 10px;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil para cima */
+    margin-top: auto;
+    border-top-left-radius: 0.625rem; /* 10px */
+    border-top-right-radius: 0.625rem; /* 10px */
+    box-shadow: 0 -0.3125rem 0.9375rem rgba(0, 0, 0, 0.3); /* -5px 15px */
 }
 
-/* --- Media Queries --- */
+/* --- Media Queries Refinadas --- */
 
-@media (max-width: 1200px) {
-    .cabecalho {
-        padding: 8% 5%; /* Ajuste o padding para telas menores */
-    }
-
+/* Ajustes para telas até 1024px (Tablets em modo paisagem, laptops menores) */
+@media (max-width: 1024px) {
     .cabecalho__menu {
-        flex-direction: column; /* Menu em coluna */
-        gap: 20px;
-        align-items: center;
-    }
-
-    .cabecalho__menu__link {
-        font-size: 1.3rem;
+        gap: 1.5rem; /* Ajusta o gap do menu */
     }
 
     .habilidades-painel {
-        width: 85%; /* Ajuste a largura do painel para telas menores */
-        padding: 25px;
-        margin-top: 5%;
+        width: 95%; /* Ocupa um pouco mais de largura */
+        padding: 1.5rem;
     }
 
     .habilidades-painel__titulo {
-        font-size: 1.5rem;
-    }
-
-    .habilidades-painel__lista {
-        gap: 20px;
+        font-size: 1.6rem;
     }
 
     .habilidade-item {
-        width: 130px; /* Ajuste a largura dos itens */
-        padding: 15px 20px;
+        width: 8.5rem; /* Ajusta a largura dos itens de habilidade */
+        padding: 1rem 1.25rem;
     }
 
     .habilidade-item img {
-        width: 50px; /* Reduz o tamanho da imagem do ícone */
-        height: 50px;
+        width: 3.125rem; /* 50px */
+        height: 3.125rem; /* 50px */
     }
 
     .apresentacao {
-        flex-direction: column-reverse;
-        margin: 5% 5% 0; /* Ajuste as margens para telas menores */
-        gap: 50px; /* Ajuste o gap */
+        flex-direction: column-reverse; /* Conteúdo abaixo da imagem */
+        padding: 2rem 5%;
+        gap: 2rem;
     }
 
     .apresentacao__conteudo, .apresentacao__image {
-        width: 90%; /* Ocupa mais largura em telas menores */
-        max-width: none; /* Remove a largura máxima */
-    }
-
-    .apresentacao__conteudo__titulo {
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .apresentacao__conteudo__paragrafo {
-        font-size: 1.1rem;
-        text-align: center;
-    }
-
-    .apresentacao__links {
-        gap: 15px;
-    }
-
-    .apresentacao__links__navegacao {
-        font-size: 1.1rem;
-        width: 85%;
-        max-width: 400px;
-    }
-
-    .apresentacao__image {
-        height: auto; /* Garante que a altura se ajuste à largura */
-    }
-}
-
-@media (max-width: 768px) {
-    .cabecalho {
-        padding: 5% 3%;
-    }
-
-    .apresentacao {
-        margin: 8% 3% 0;
+        width: 100%; /* Ocupam 100% da largura em coluna */
+        max-width: none; /* Remove a largura máxima para que possam se expandir */
     }
 
     .apresentacao__conteudo__titulo {
@@ -414,58 +364,156 @@ body.fadeOut {
         font-size: 1rem;
     }
 
-    .apresentacao__links__subtitulo {
-        font-size: 1rem;
-    }
-
     .apresentacao__links__navegacao {
-        font-size: 1rem;
-        padding: 12px 0;
-    }
-
-    .habilidades-painel {
-        width: 95%; /* Ocupa quase toda a largura em telas muito pequenas */
-        margin-top: 5%; /* Mais margem em cima */
-        padding: 20px;
-    }
-
-    .habilidades-painel__titulo {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-    }
-
-    .habilidades-painel__lista {
-        flex-direction: row; /* Mantém em linha, mas permite quebra */
-        gap: 15px;
-    }
-
-    .habilidade-item {
-        width: 110px; /* Reduz ainda mais a largura do item */
-        padding: 12px 15px;
-    }
-
-    .habilidade-item img {
-        width: 40px; /* Ícone menor para telas pequenas */
-        height: 40px;
-    }
-
-    .habilidade-item span {
-        font-size: 0.9rem;
-    }
-
-    .rodape {
-        font-size: 0.9rem;
-        padding: 12px;
+        width: 80%; /* Link de navegação um pouco mais largo */
+        max-width: 22rem; /* 352px */
     }
 }
 
-@media (max-width: 480px) {
-    .habilidades-painel__lista {
-        flex-direction: column; /* Em telas muito pequenas, pode empilhar */
+/* Ajustes para telas até 768px (Tablets em modo retrato, celulares maiores) */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px; /* Reduz a fonte base um pouco para telas menores */
+    }
+
+    .cabecalho {
+        padding: 1.5rem 3%; /* Mais compacto */
+    }
+
+    .cabecalho__menu {
+        flex-direction: column; /* Menu em coluna para mais espaço */
         align-items: center;
+        gap: 1rem;
+    }
+
+    .cabecalho__menu__link {
+        font-size: 1.15rem; /* Tamanho ajustado */
+    }
+
+    .habilidades-painel {
+        padding: 1.25rem;
+        margin: 2rem auto 1.5rem;
+    }
+
+    .habilidades-painel__titulo {
+        font-size: 1.4rem;
+    }
+
+    .habilidades-painel__lista {
+        gap: 1rem; /* Reduz o gap entre os itens de habilidade */
+    }
+
+    .habilidade-item {
+        width: 8rem; /* 128px - Um pouco menor */
+        padding: 0.8rem 1rem;
+    }
+
+    .habilidade-item img {
+        width: 2.5rem; /* 40px */
+        height: 2.5rem; /* 40px */
+    }
+
+    .habilidade-item span {
+        font-size: 0.9rem; /* 14.4px */
+    }
+
+    .apresentacao {
+        padding: 1.5rem 3%;
+        gap: 1.5rem;
+    }
+
+    .apresentacao__conteudo__titulo {
+        font-size: 1.6rem;
+    }
+
+    .apresentacao__links__navegacao {
+        width: 90%; /* Ocupa quase toda a largura */
+    }
+
+    .rodape {
+        font-size: 0.8rem; /* 12.8px */
+        padding: 0.8rem;
+    }
+}
+
+/* Ajustes para telas até 480px (Celulares pequenos) */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px; /* Reduz a fonte base para as menores telas */
+    }
+
+    .cabecalho {
+        padding: 1rem 2%;
+    }
+
+    .cabecalho__menu__link {
+        font-size: 1.05rem; /* Ajuste final do tamanho do link */
+    }
+
+    .habilidades-painel__titulo {
+        font-size: 1.2rem;
+    }
+
+    .habilidades-painel__lista {
+        flex-direction: column; /* Empilha os itens de habilidade */
+        align-items: center;
+        gap: 0.8rem; /* 12.8px */
+    }
+
+    .habilidade-item {
+        width: 90%; /* Ocupa quase toda a largura quando empilhado */
+        max-width: 15rem; /* 240px */
+        padding: 0.75rem 1rem;
+        flex-direction: row; /* Coloca imagem e texto lado a lado */
+        justify-content: center;
+    }
+
+    .habilidade-item img {
+        width: 2rem; /* 32px */
+        height: 2rem; /* 32px */
+        margin-bottom: 0; /* Remove margem inferior */
+        margin-right: 0.5rem; /* Adiciona margem à direita para separar do texto */
+    }
+
+    .habilidade-item span {
+        font-size: 1rem; /* Mantém um tamanho legível */
+    }
+
+    .apresentacao__conteudo__titulo {
+        font-size: 1.4rem;
+    }
+
+    .apresentacao__conteudo__paragrafo {
+        font-size: 0.9rem;
+    }
+
+    .apresentacao__links__navegacao {
+        font-size: 0.95rem;
+        padding: 0.7rem 0;
+    }
+
+    .rodape {
+        font-size: 0.75rem; /* 12px */
+    }
+}
+
+/* Ajuste adicional para dispositivos pequenos em orientação horizontal */
+@media (max-height: 480px) and (orientation: landscape) {
+    .apresentacao {
+        flex-direction: row; /* Tenta manter a imagem e o texto lado a lado se houver espaço */
+        flex-wrap: wrap; /* Garante que quebrem se não couberem */
+        gap: 1rem;
+    }
+
+    .apresentacao__conteudo, .apresentacao__image {
+        width: 48%; /* Divide o espaço */
+    }
+
+    .habilidades-painel__lista {
+        flex-direction: row; /* Tenta manter em linha */
     }
     .habilidade-item {
-        width: 80%; /* Ocupa mais largura quando empilhado */
-        max-width: 200px; /* Limita a largura máxima */
+        width: 7rem; /* 112px */
+        padding: 0.6rem 0.8rem;
     }
 }
